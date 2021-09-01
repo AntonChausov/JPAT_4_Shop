@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String login;
     private String password;
     private String name;
@@ -11,12 +13,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login) && password.equals(user.password);
+        return login.equals(user.login);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(login);
     }
 
     public User(String login, String password) {
@@ -50,8 +52,11 @@ public class User {
         return name;
     }
 
+    public String getMoneyString() {
+        return "You have: " + this.money + "$";
+    }
     public double getMoney() {
-        return money;
+        return this.money;
     }
 
     public void changeLogin(String login) {

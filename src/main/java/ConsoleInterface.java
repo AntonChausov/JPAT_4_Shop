@@ -20,9 +20,10 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public int showMenu(List<String> actions){
+    public int showMenu(String title, String[] actions){
         int action = 0;
         String choose;
+        printString(title);
         while (true) {
             for (String point : actions) {
                 printString(point);
@@ -33,7 +34,7 @@ public class ConsoleInterface implements UserInterface {
             } catch (NumberFormatException e) {
                 printString("Incorrect, try again");
             }
-            if (action <= actions.size()){
+            if (action <= actions.length){
                 break;
             } else {
                 printString("There is no such option");
