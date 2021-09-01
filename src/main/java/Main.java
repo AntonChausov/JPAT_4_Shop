@@ -9,6 +9,7 @@ public class Main {
 
     private static User currentUser;
     private static List<User> users = new ArrayList<>(); //наверно, не круто хранить список пользователей, но мы будем.
+    private static List<Items> items = new ArrayList<>();
     private static String userLogin;
     // answers - Magics. Можно вычислять по длине массива, но так читать проще, как-будто
     private static int answer1 = 1,
@@ -33,7 +34,7 @@ public class Main {
         if (firstPage(pathToUserData, interfase)) return; // так подменила IDEA
 
         //основное меню
-        //TODO: Прочитать товары в лист
+        items = WorkWithFiles.getItems(pathToItemsData);
         while (true) {
             String[] actions = {"1. Add money",
                     "2. Buy something",
@@ -46,6 +47,7 @@ public class Main {
                 currentUser.addMoney(addedMoney);
             } else if (action == answer2) {
                 //TODO: Показать товары не этого пользователя
+                //List <Items> = items.stream().
                 //TODO: Предложить выбор
                 //TODO: если денег хватает - меняем владельца
                 //TODO: команда назад
@@ -98,7 +100,7 @@ public class Main {
 
     private static boolean findUserByLogin(String pathToUserData, UserInterface interfase) {
         userLogin = interfase.getString("Insert your login: ");
-        users = WorkWithFiles.getUsers(pathToUserData);
+        users = WorkWithFiles.getListFromFile(pathToUserData, new User("1", "1"));
         boolean find = false;
         for (User user : users) {
             if (user.getLogin().equals(userLogin)) {
