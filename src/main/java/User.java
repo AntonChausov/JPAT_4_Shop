@@ -1,17 +1,12 @@
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User extends Person implements Serializable {
     private static final long serialVersionUID = 1L;
     private String login;
     private String password;
-    private String name;
+    //private String name;
     private double money;
-
-    //Нужен только для упрощения вызова getListFromFile
-    public User(String login) {
-        this.login = login;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -26,23 +21,15 @@ public class User implements Serializable {
         return Objects.hash(login);
     }
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public User(String name) {
+        super(name);
     }
 
     public User(String login, String password, String name) {
+        super(name);
         this.login = login;
         this.password = password;
-        this.name = name;
         this.money = 0;
-    }
-
-    public User(String login, String password, String name, double money) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.money = money;
     }
 
     public String getLogin() {
@@ -54,12 +41,13 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public String getMoneyString() {
         return "You have: " + this.money + "$";
     }
+
     public double getMoney() {
         return this.money;
     }
@@ -86,19 +74,20 @@ public class User implements Serializable {
         return result;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void addMoney(double money) {
         this.money += money;
     }
 
     public boolean spendMoney(double money) {
-        boolean result = money >= this.money;
+        boolean result = money <= this.money;
         if (result) {
-            this.money += money;
+            this.money -= money;
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return super.getName();
     }
 }

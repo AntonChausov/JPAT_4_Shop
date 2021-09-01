@@ -6,17 +6,6 @@ public class Items implements Serializable {
     private double price;
     private User owner;
 
-    //Нужен только для упрощения вызова getListFromFile
-    public Items(String name) {
-        this.name = name;
-    }
-
-    public Items(String name, User owner) {
-        this.name = name;
-        this.owner = owner;
-        this.price = 0.01;
-    }
-
     public Items(String name, double price, User owner) {
         this.name = name;
         this.price = price;

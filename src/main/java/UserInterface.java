@@ -1,4 +1,3 @@
-import java.util.List;
 
 public interface UserInterface {
     String getString(String outputLine);

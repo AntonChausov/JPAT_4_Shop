@@ -4,24 +4,9 @@ import java.util.List;
 
 public class WorkWithFiles {
 
-    //delete
-    public static List<User> getUsers(String destinationUserData) {
-        File file = new File(destinationUserData);
-        List<User> users = new ArrayList<>();
-        if (file.length() != 0) {
-            try (FileInputStream fis = new FileInputStream(destinationUserData);
-                 ObjectInputStream ois = new ObjectInputStream(fis)) {
-                users = (List<User>) ois.readObject();
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        return users;
-    }
-
     public static boolean createFiles(String destinationUserData, String destinationItemsData) {
         boolean fileExist = createFile(destinationUserData);
-        fileExist = createFile(destinationItemsData);
+        fileExist = fileExist && createFile(destinationItemsData);
         return fileExist;
     }
 
@@ -38,10 +23,10 @@ public class WorkWithFiles {
         return fileExist;
     }
 
-    public static boolean saveUserData(String destination, List<User> users){
+    public static <T> boolean saveData(String destination, List<T> list){
         try (FileOutputStream fos = new FileOutputStream(destination);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(users);
+            oos.writeObject(list);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
@@ -49,22 +34,7 @@ public class WorkWithFiles {
         return true;
     }
 
-    //delete
-    public static List<Items> getItems(String destination) {
-        File file = new File(destination);
-        List<Items> items = new ArrayList<>();
-        if (file.length() != 0) {
-            try (FileInputStream fis = new FileInputStream(destination);
-                 ObjectInputStream ois = new ObjectInputStream(fis)) {
-                items = (List<Items>) ois.readObject();
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        return items;
-    }
-
-    public static <T> List<T> getListFromFile(String destination, T type) {
+    public static <T> List<T> getListFromFile(String destination) {
         File file = new File(destination);
         List<T> list = new ArrayList<>();
         if (file.length() != 0) {
