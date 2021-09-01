@@ -34,7 +34,7 @@ public class Main {
         if (firstPage(pathToUserData, interfase)) return; // так подменила IDEA
 
         //основное меню
-        items = WorkWithFiles.getItems(pathToItemsData);
+        items = WorkWithFiles.getListFromFile(pathToItemsData, new Items("1"));
         while (true) {
             String[] actions = {"1. Add money",
                     "2. Buy something",
@@ -100,7 +100,7 @@ public class Main {
 
     private static boolean findUserByLogin(String pathToUserData, UserInterface interfase) {
         userLogin = interfase.getString("Insert your login: ");
-        users = WorkWithFiles.getListFromFile(pathToUserData, new User("1", "1"));
+        users = WorkWithFiles.getListFromFile(pathToUserData, new User("1"));
         boolean find = false;
         for (User user : users) {
             if (user.getLogin().equals(userLogin)) {

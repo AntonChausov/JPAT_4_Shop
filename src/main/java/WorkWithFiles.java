@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkWithFiles {
+
+    //delete
     public static List<User> getUsers(String destinationUserData) {
         File file = new File(destinationUserData);
         List<User> users = new ArrayList<>();
@@ -47,6 +49,7 @@ public class WorkWithFiles {
         return true;
     }
 
+    //delete
     public static List<Items> getItems(String destination) {
         File file = new File(destination);
         List<Items> items = new ArrayList<>();

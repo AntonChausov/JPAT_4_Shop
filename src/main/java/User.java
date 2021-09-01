@@ -8,6 +8,11 @@ public class User implements Serializable {
     private String name;
     private double money;
 
+    //Нужен только для упрощения вызова getListFromFile
+    public User(String login) {
+        this.login = login;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
