@@ -9,15 +9,13 @@ public class Main {
     private static List<User> users = new ArrayList<>(); //наверно, не круто хранить список пользователей, но мы будем.
     private static List<Items> items = new ArrayList<>();
     private static String userLogin;
-    // answers - Magics. Можно вычислять по длине массива, но так читать проще, как-будто
-    private static int answer0 = 0,
+    private static final int answer0 = 0,
             answer1 = 1,
             answer2 = 2,
             answer3 = 3,
             answer4 = 4,
             answer5 = 5,
             answer6 = 6;
-    //
 
     public static void main(String[] args) {
 
@@ -88,9 +86,7 @@ public class Main {
     private static void myItems(UserInterface usedInterface) {
         List<Items> currentUserItems = itemFilter(ItemsOwner.CURRENT_USER);
         int action = showItemList(usedInterface, "Want change price? Choose item:", currentUserItems);
-        if (action == answer0){
-            return;
-        } else {
+        if (action != answer0) {
             Items changingItem = currentUserItems.get(action - 1);
             double newPrice = Double.parseDouble(usedInterface.getString("Input new price: "));
             changingItem.setPrice(newPrice);
@@ -100,9 +96,7 @@ public class Main {
     private static void buy(UserInterface usedInterface) {
         List<Items> offeredItems = itemFilter(ItemsOwner.OTHER);
         int action = showItemList(usedInterface, "What you want buy:", offeredItems);
-        if (action == answer0){
-            return;
-        } else {
+        if (action != answer0) {
             Items buyingItem = offeredItems.get(action - 1);
             if (currentUser.spendMoney(buyingItem.getPrice())) {
                 User owner = buyingItem.getOwner();
@@ -123,10 +117,9 @@ public class Main {
         } else {
             lambda = (i) -> i.getOwner().equals(currentUser);
         }
-        List <Items> filteredItems = items.stream()
+        return items.stream()
                 .filter(lambda)
                 .collect(Collectors.toList());
-        return filteredItems;
     }
 
     private static int showItemList(UserInterface usedInterface, String title, List<Items> offeredItems) {
@@ -136,8 +129,7 @@ public class Main {
         for (Items item : offeredItems) {
             actions[counter] = counter++ + ". " + item;
         }
-        int action = usedInterface.showMenu(title, actions);
-        return action;
+        return usedInterface.showMenu(title, actions);
     }
 
     private static boolean firstPage(String pathToUserData, UserInterface usedInterface) {
@@ -152,9 +144,7 @@ public class Main {
                 usedInterface.printString("Hi " + currentUser.getName() + "! " + currentUser.getMoneyString());
             }
         } else {
-            if (!Registration(pathToUserData, usedInterface)) {
-                return true;
-            }
+            return !Registration(pathToUserData, usedInterface);
         }
         return false;
     }
