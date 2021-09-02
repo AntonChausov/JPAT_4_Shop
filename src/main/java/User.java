@@ -1,8 +1,6 @@
-import java.io.Serializable;
 import java.util.Objects;
 
-public class User extends Person implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class User extends Person {
     private String login;
     private String password;
     //private String name;
@@ -63,7 +61,7 @@ public class User extends Person implements Serializable {
             String newPassword1 = userInterface.getString("Input new password: ");
             String newPassword2 = userInterface.getString("Repeat new password: ");
             if (newPassword1.equals(newPassword2)){
-                this.password = password;
+                this.password = newPassword1;
                 result = true;
             } else {
                 userInterface.getString("Mismatch");
